@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>AJAX | XMLHttpRequest</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: "Helvetica", sans-serif;
+      }
+      .container{
+        width:50%;
+        margin:auto;
+      }
+      .response{
+        text-align : left;
+      }
+      h1 {
+        font-size: 2em;
+        font-weight: bold;
+      }
+      .box {
+        border-radius: 5px;
+        background-color: #eee;
+        padding: 20px 5px;
+      }
+      button {
+        color: white;
+        background-color: #4791d0;
+        border-radius: 5px;
+        border: 1px solid #4791d0;
+        padding: 5px 10px 8px 10px;
+      }
+      button:hover {
+        background-color: #0F5897;
+        border: 1px solid #0F5897;
+      }
+    </style>
+	</head>
+	<body>
+<script>
+  document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('getMessage').onclick=function(){
+    
+      req=new XMLHttpRequest();
+      req.open("GET",'json/cats.json',true);
+      req.send();
+      req.onload=function(){
+        json=JSON.parse(req.responseText);
+        var html = "";
+        for (const [key, value] of Object.entries(json)) {
+              //console.log(value['altText']);
+              html+="<div class='cat'>";
+              html+="<strong>"+key+" -> </strong>"+value['altText']+"<br>";
+              html+="</div><br>";
+          }
+        document.getElementsByClassName('response')[0].innerHTML=html;
+        document.getElementsByClassName('message')[0].innerHTML="Fetching Successful";
+
+
+      };
+    };
+  });
+</script>
+<div class="container">
+<h1>Fetching Data | XMLHttpRequest</h1>
+
+<p  id="success" class="message box">
+  The message will go here
+</p>
+<p class="response"></p>
+<p>
+  <button id="getMessage">
+    Get Data
+  </button>
+</p>
+</div>
+</body>
+</html>
